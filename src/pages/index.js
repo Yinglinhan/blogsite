@@ -11,7 +11,9 @@ const tempOffset = {
   acumulateX:0,
   acumulateY:0,
   x:0,
-  y:0
+  y:0,
+  prevY:0,
+  prevX:0
 }
 window.addEventListener("wheel",function(e){
   e.preventDefault()
@@ -65,14 +67,45 @@ const IndexPage = () => {
 
   //   }
   // }
-  function dragStart(){
-    console.log(123)
+  function dragStart(e,info){
+    console.log('start',e,info)
+    tempOffset.prevX = e.clientX 
+    tempOffset.prevY = e.clientY
   }
   function dragEnd(){
     console.log(321)
+   if(parseInt(tempOffset.acumulateX / 640 ) !== 0 || parseInt(tempOffset.acumulateY / 480 ) !== 0){
+    tempOffset.acumulateX = parseInt(tempOffset.acumulateX / 640 ) !== 0 ? tempOffset.acumulateX % 640 : tempOffset.acumulateX
+    tempOffset.acumulateY = parseInt(tempOffset.acumulateY / 480 ) !== 0 ? tempOffset.acumulateY % 480 : tempOffset.acumulateY
+    controller.set(
+      {
+        x:-(3840 - window.innerWidth/2) + tempOffset.acumulateX,
+        y:-(3840 - window.innerHeight/2) + tempOffset.acumulateY,
+      }
+    )
+   }
+
+
+
+
+
+
+  
   }
-  function dragging(){
-    console.log(666)
+  function dragging(e,info){
+    // console.log('dragging',e.movementY,e.movementX)
+    // console.log(e,e.clientX)
+    tempOffset.acumulateX += Math.round(e.clientX - tempOffset.prevX)
+    tempOffset.acumulateY += Math.round(e.clientY - tempOffset.prevY)
+    tempOffset.prevX = e.clientX 
+    tempOffset.prevY = e.clientY
+    console.log(tempOffset)
+    controller.set(
+      {
+        x:-(3840 - window.innerWidth/2) + tempOffset.acumulateX,
+        y:-(3840 - window.innerHeight/2) + tempOffset.acumulateY,
+      }
+    )
   }
 
   return (
