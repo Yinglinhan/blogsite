@@ -16,11 +16,7 @@ const tempOffset = {
   prevY:0,
   prevX:0
 }
-window.addEventListener("wheel",function(e){
-  e.preventDefault()
-},{
-  passive:false
-})
+
 console.log(888)
 
 // 组件 ------------
@@ -28,6 +24,11 @@ const IndexPage = () => {
   const [refresh,setRefresh] = React.useState([])
   const controller = useAnimation()
   React.useEffect(()=>{
+    window.addEventListener("wheel",function(e){
+      e.preventDefault()
+    },{
+      passive:false
+    })
     window.addEventListener("resize",()=>{
       controller.set(
         {
