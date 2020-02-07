@@ -22,8 +22,13 @@ console.log(888)
 // 组件 ------------
 const IndexPage = () => {
   const [refresh,setRefresh] = React.useState([])
+  const [isvisible,setVisible] = React.useState('none')
   const controller = useAnimation()
   React.useEffect(()=>{
+    controller.set(
+      {x:-(3840 - window.innerWidth/2),y:-(3840 - window.innerHeight/2)}
+    )
+    setVisible('auto')
     window.addEventListener("wheel",function(e){
       e.preventDefault()
     },{
@@ -124,12 +129,14 @@ const IndexPage = () => {
     onPan={dragging}
     dragMomentum={false}
     animate={controller}
-    initial={{x:-(3840 - window.innerWidth/2),y:-(3840 - window.innerHeight/2)}}
+    
+    // initial={{x:-(3840 - window.innerWidth/2),y:-(3840 - window.innerHeight/2)}}
     css={css`
       height:7680px;
       width:7680px;
       font-size:0;
       background-color:${colors.mainBlack};
+      display:${isvisible};
     `}>
       {/* {console.log(-(1280 - window.innerWidth/2))} */}
       { Array.from(Array(192)).map((item,index)=>{
