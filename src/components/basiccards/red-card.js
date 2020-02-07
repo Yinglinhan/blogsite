@@ -5,7 +5,7 @@ import {colors} from "../../assets/site-setting"
 const RedCard = ()=>{
     return( 
     <>
-       <BasicElement cardColor={colors.mainRed} />
+       <BasicElement cardColor={colors.mainRed} chi={'教程'} eng={'tutorial'} />
     </>)
 }
 

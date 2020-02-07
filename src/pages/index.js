@@ -1,6 +1,7 @@
 import React from "react"
 import {Global,css} from "@emotion/core"
 
+import { colors } from "../assets/site-setting"
 import CardGroup from "../components/cards-group"
 import {motion,useAnimation} from "framer-motion"
 
@@ -28,6 +29,12 @@ const IndexPage = () => {
   const controller = useAnimation()
   React.useEffect(()=>{
     window.addEventListener("resize",()=>{
+      controller.set(
+        {
+          x:-(3840 - window.innerWidth/2) + tempOffset.acumulateX,
+          y:-(3840 - window.innerHeight/2) + tempOffset.acumulateY,
+        }
+      )
       setRefresh([])
     })
    
@@ -41,56 +48,40 @@ const IndexPage = () => {
     // console.log(tempOffset)
     
   }
-  // function dragFinish(e){
-  //   // console.log(e)
-  //   console.log(controller)
-  //   tempOffset.acumulateX += tempOffset.startX - e.clientX 
-  //   tempOffset.acumulateY += tempOffset.startY - e.clientY
-  //   tempOffset.x = parseInt(tempOffset.acumulateX / 640 ) !== 0 ? tempOffset.acumulateX % 640 : tempOffset.acumulateX
-  //   tempOffset.y = parseInt(tempOffset.acumulateY / 480 ) !== 0 ? tempOffset.acumulateY % 480 : tempOffset.acumulateY
-  //   // console.log(tempOffset)
-  //   //鼠标往上 左拖拽 数值是正数
-  //   //鼠标往下 右拖拽  负数
-  //   if(parseInt(tempOffset.acumulateX / 640 ) !== 0 || parseInt(tempOffset.acumulateY / 480 ) !== 0) {
-  //     console.log('需要重置',tempOffset)
-  //     // controller.set({
-  //     //   x:100,
-  //     //   y:100
-  //     // })
-  //     controller.set({
-  //       x:-(3840 - window.innerWidth/2) - tempOffset.x,
-  //       y:-(3840 - window.innerHeight/2) - tempOffset.y
-        
-  //     })
-  //     tempOffset.acumulateX = tempOffset.x
-  //     tempOffset.acumulateY = tempOffset.y
-
-  //   }
-  // }
+ 
   function dragStart(e,info){
     console.log('start',e,info)
     tempOffset.prevX = e.clientX 
     tempOffset.prevY = e.clientY
+    controller.start({
+      scale:0.99,
+      transition:{
+        duration:0.08,
+        ease:"easeInOut"
+      }
+    })
   }
   function dragEnd(){
     console.log(321)
-   if(parseInt(tempOffset.acumulateX / 640 ) !== 0 || parseInt(tempOffset.acumulateY / 480 ) !== 0){
-    tempOffset.acumulateX = parseInt(tempOffset.acumulateX / 640 ) !== 0 ? tempOffset.acumulateX % 640 : tempOffset.acumulateX
-    tempOffset.acumulateY = parseInt(tempOffset.acumulateY / 480 ) !== 0 ? tempOffset.acumulateY % 480 : tempOffset.acumulateY
+    controller.start({
+      scale:1,
+      transition:{
+        duration:0.08,
+        ease:"easeInOut"
+      }
+    })
+   if(parseInt(tempOffset.acumulateX / 800 ) !== 0 || parseInt(tempOffset.acumulateY / 600 ) !== 0){
+    tempOffset.acumulateX = parseInt(tempOffset.acumulateX / 800 ) !== 0 ? tempOffset.acumulateX % 800 : tempOffset.acumulateX
+    tempOffset.acumulateY = parseInt(tempOffset.acumulateY / 600 ) !== 0 ? tempOffset.acumulateY % 600 : tempOffset.acumulateY
     controller.set(
       {
         x:-(3840 - window.innerWidth/2) + tempOffset.acumulateX,
         y:-(3840 - window.innerHeight/2) + tempOffset.acumulateY,
+        
       }
     )
    }
 
-
-
-
-
-
-  
   }
   function dragging(e,info){
     // console.log('dragging',e.movementY,e.movementX)
@@ -116,6 +107,11 @@ const IndexPage = () => {
         padding:0;
         margin:0;
       }
+      body{
+        -moz-user-select:none;
+        -webkit-user-select:none;
+        -ms-user-select:none;
+      }
 
     `}/>
     <motion.div 
@@ -132,10 +128,11 @@ const IndexPage = () => {
       height:7680px;
       width:7680px;
       font-size:0;
+      background-color:${colors.mainBlack};
     `}>
       {/* {console.log(-(1280 - window.innerWidth/2))} */}
       { Array.from(Array(192)).map((item,index)=>{
-        return <CardGroup key={index} num1={index}/>
+        return <CardGroup key={index} />
       })
       }
 

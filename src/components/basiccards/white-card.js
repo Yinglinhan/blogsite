@@ -6,7 +6,7 @@ import {colors} from "../../assets/site-setting"
 const WhiteCard = ()=>{
     return( 
     <>
-        <BasicElement cardColor={colors.mainWhite}/>
+        <BasicElement cardColor={colors.mainWhite} chi={'文档'} eng={'document'} />
     </>)
 }
 

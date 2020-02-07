@@ -7,12 +7,41 @@ const BasicElement = (props)=>{
     <>
         <div css={css`
             background-color:${props.cardColor};
-            height:240px;
-            width:320px;
+            height:300px;
+            width:400px;
             display:inline-block;
             border:6px solid ${colors.mainBlack};
+            font-size:16px;
+            
         `}>
-
+            <div
+            name="content"
+            css={css`
+                background-color:${props.cardColor};
+                height:100%;
+                width:100%;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+                transition:all 0.2s ease;
+                &:hover > span{
+                    transform:scale(0.92)
+                }
+            `}>
+                <span css={css`
+                    font-family:"optician sans";
+                    font-size:24px;
+                    letter-spacing:6px;
+                    transition:all 0.2s ease;
+                `}>{props.eng}</span>    
+                <span css={css`
+                    transition:all 0.2s ease;
+                    font-weight:lighter;
+                    font-size:80px;
+                    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                `}>{props.chi}</span>
+            </div>
         </div>
     </>
     )

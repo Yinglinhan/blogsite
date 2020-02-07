@@ -7,11 +7,11 @@ import RedCard from "./basiccards/red-card"
 import WhiteCard from "./basiccards/white-card"
 import { colors } from "../assets/site-setting"
 
-const CardGroup = ({num1})=>{
+const CardGroup = ()=>{
     return( 
     <div css={css`
-        height:480px;
-        width:640px;
+        height:600px;
+        width:800px;
         font-size:0;
         display:inline-block;
         position:relative;
@@ -20,14 +20,7 @@ const CardGroup = ({num1})=>{
         <YellowCard />
         <WhiteCard />
         <RedCard />
-        <div css={css`
-            position:absolute;
-            top:100px;
-            left:100px;
-            font-size:2rem;
-        `}>
-            {num1}
-        </div>
+        
     </div>)
 }
 
