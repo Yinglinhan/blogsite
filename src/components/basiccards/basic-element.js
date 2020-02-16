@@ -1,19 +1,36 @@
 import React from "react"
+import AllContext from "../allContent"
+
 import {css} from "@emotion/core"
 import { colors } from "../../assets/site-setting"
 
+function createCard(a,e){
+    console.log(a,e)
+}
+
+
 const BasicElement = (props)=>{
+    const controller = React.useContext(AllContext)
+
     return ( 
     <>
-        <div css={css`
+        <div 
+        css={css`
             background-color:${props.cardColor};
             height:300px;
             width:400px;
             display:inline-block;
             border:6px solid ${colors.mainBlack};
             font-size:16px;
-            
-        `}>
+            transition:all 0.4s ease;
+        `}
+        onClick={(e)=>{
+
+          
+
+        }}
+        
+        >
             <div
             name="content"
             css={css`
