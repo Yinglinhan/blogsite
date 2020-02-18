@@ -1,20 +1,22 @@
 import React from "react"
-import AllContext from "../allContent"
+// import AllContext from "../allContent"
+import {motion,useAnimation} from "framer-motion"
+
 
 import {css} from "@emotion/core"
 import { colors } from "../../assets/site-setting"
 
-function createCard(a,e){
-    console.log(a,e)
-}
+
 
 
 const BasicElement = (props)=>{
-    const controller = React.useContext(AllContext)
+    // const controller = React.useContext(AllContext)
+   
 
     return ( 
     <>
-        <div 
+        <motion.div 
+        className="single-card"
         css={css`
             background-color:${props.cardColor};
             height:300px;
@@ -22,13 +24,38 @@ const BasicElement = (props)=>{
             display:inline-block;
             border:6px solid ${colors.mainBlack};
             font-size:16px;
-            transition:all 0.4s ease;
+            transition:all 0.4s ${Math.floor(Math.random()*5)/10}s ease-in-out;
+            
         `}
         onClick={(e)=>{
-
-          
-
+            console.log(e.currentTarget)
+            e.currentTarget.classList.add("tap-one")
+            const allcards = document.querySelectorAll(".single-card")
+                allcards.forEach((item)=>{
+                   item.setAttribute("style","opacity:0")
+               })
         }}
+        
+        // onTap={
+        //     (e)=>{
+        //         const allcards = document.querySelectorAll(".single-card")
+        //         const target = e.path.filter((item)=>{
+        //             if(item.classList){
+        //                 const temp = Array.from(item.classList)
+        //                 return temp.includes("single-card")
+        //             }else{
+        //                 return false
+        //             }
+                  
+        //         })
+        //         target[0].classList.add("tap-one")
+        //         // console.log(,e,e.path,e.path[1])
+        //         // ref.current.classList.add("tap-one")
+        //         allcards.forEach((item)=>{
+        //            item.setAttribute("style","opacity:0")
+        //        })
+        //     }
+        // }
         
         >
             <div
@@ -59,7 +86,7 @@ const BasicElement = (props)=>{
                     font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 `}>{props.chi}</span>
             </div>
-        </div>
+        </motion.div>
     </>
     )
 }

@@ -4,6 +4,8 @@ import AllContext from "../components/allContent"
 
 import { colors } from "../assets/site-setting"
 import CardGroup from "../components/cards-group"
+// import LoadBox from "../components/loadBox"
+
 import {motion,useAnimation} from "framer-motion"
 
 
@@ -18,12 +20,12 @@ const tempOffset = {
   prevX:0
 }
 
-console.log(888)
 
 // 组件 ------------
 const IndexPage = () => {
   const [refresh,setRefresh] = React.useState([])
   const [isvisible,setVisible] = React.useState('none')
+  // const [isready,setReady] = React.useState(false)
   const controller = useAnimation()
   const controllerCon = useAnimation()
   React.useEffect(()=>{
@@ -45,12 +47,7 @@ const IndexPage = () => {
       )
       setRefresh([])
     })
-    const loadingbox = document.getElementById("loading-box")
-    loadingbox.ontransitionend = function(){
-      loadingbox.setAttribute("style","display:none")
-    }
-    loadingbox.setAttribute("style","opacity:0")
-    console.log(loadingbox)
+    
    
   },[])
   
@@ -75,7 +72,7 @@ const IndexPage = () => {
     })
   }
   function dragEnd(){
-    console.log(321)
+
     controller.start({
       scale:1,
       transition:{
@@ -127,12 +124,14 @@ const IndexPage = () => {
       }
 
     `}/>
+    {/* <LoadBox isready={isready}/> */}
     <motion.div 
       onTapStart={dragStart}
       onPanEnd={dragEnd}
       onPan={dragging}
       dragMomentum={false}
       animate={controller}
+      
       css={css`
       height:7680px;
       width:7680px;
@@ -210,15 +209,16 @@ const IndexPage = () => {
         position:fixed;
         top:0;
         left:0;
-        height:300px;
-        width:400px;
+        height:100vh;
+        width:100vw;
         background-color:white;
-        opacity:0;
+        opacity:1;
+        z-index:-1;
       `}
       
       animate={controllerCon}
       >
-
+        这是内容页面
     </motion.div>
   </AllContext.Provider>)
 }

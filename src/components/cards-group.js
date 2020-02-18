@@ -15,7 +15,8 @@ const CardGroup = ()=>{
         font-size:0;
         display:inline-block;
         position:relative;
-    `}>
+    `}
+    >
         <BlueCard />
         <YellowCard />
         <WhiteCard />
